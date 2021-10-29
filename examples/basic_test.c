@@ -5,7 +5,7 @@
 
 static double CurrentSeconds(void) {
   struct timespec ts;
-  if (clock_gettime(CLOCK_MONOTONIC_RAW, &ts) != 0) {
+  if (clock_gettime(CLOCK_MONOTONIC, &ts) != 0) {
     printf("Error getting time.\n");
     exit(1);
   }
