@@ -57,6 +57,23 @@ static int VerifyTreeContents(ScapegoatTree *tree, int *keys, int key_count) {
   return 1;
 }
 
+static void CountKeysCallback(void *key, void *user_data) {
+  int *count = (int *) user_data;
+  *count += 1;
+}
+
+// Tries traversing the full tree. Returns 0 if an error occurs.
+static int TestTreeTraversal(ScapegoatTree *tree) {
+  int count = 0;
+  TraverseScapegoatTree(tree, CountKeysCallback, &count);
+  if (count != tree->tree_size) {
+    printf("Traversing the tree didn't return the correct number of nodes.\n");
+    return 0;
+  }
+  printf("Tree traversal seems OK!\n");
+  return 1;
+}
+
 // Builds a tree, inserting the specified number of random elements.
 static int TestTree(int tree_size) {
   int i = 0, result = 1;
@@ -91,6 +108,10 @@ static int TestTree(int tree_size) {
   }
 
   if (!VerifyTreeContents(tree, keys, tree_size)) {
+    result = 0;
+    goto cleanup;
+  }
+  if (!TestTreeTraversal(tree)) {
     result = 0;
     goto cleanup;
   }

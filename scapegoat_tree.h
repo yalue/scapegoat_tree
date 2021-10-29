@@ -14,6 +14,11 @@ typedef struct ScapegoatTreeNode_s {
 // searching for a key.
 typedef int (*ScapegoatComparatorFunction)(const void *a, const void *b);
 
+// The type of callback function required when traversing the tree. Receives
+// the key of each visited node, as well as the user data pointer provided to
+// the traversal function.
+typedef void (*TraversalCallbackFunction)(void *key, void *user_data);
+
 // Holds metadata about the entire tree, including its root node.
 typedef struct {
   ScapegoatComparatorFunction comparator;
@@ -41,6 +46,12 @@ int ScapegoatInsert(ScapegoatTree *tree, void *key);
 // return the first matching key that was inserted into the tree, as determined
 // by the comparator function. Returns NULL if the key isn't found.
 void* ScapegoatSearch(ScapegoatTree *tree, void *key);
+
+// Visits every node in the tree in order. Calls the callback function with
+// each node's key as it is visited, providing the user_data pointer to the
+// callback.
+void TraverseScapegoatTree(ScapegoatTree *tree,
+    TraversalCallbackFunction callback, void *user_data);
 
 // Frees any memory associated with the scapegoat tree. The tree pointer is
 // invalid after calling this.

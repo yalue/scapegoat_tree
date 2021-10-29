@@ -265,6 +265,19 @@ void* ScapegoatSearch(ScapegoatTree *tree, void *key) {
   return SearchTreeRecursive(tree, tree->root, key);
 }
 
+static void TraverseTreeRecursive(ScapegoatTreeNode *node,
+    TraversalCallbackFunction callback, void *user_data) {
+  if (!node) return;
+  TraverseTreeRecursive(node->left, callback, user_data);
+  callback(node->key, user_data);
+  TraverseTreeRecursive(node->right, callback, user_data);
+}
+
+void TraverseScapegoatTree(ScapegoatTree *tree,
+    TraversalCallbackFunction callback, void *user_data) {
+  TraverseTreeRecursive(tree->root, callback, user_data);
+}
+
 static void DestroyTreeRecursive(ScapegoatTreeNode *root) {
   ScapegoatTreeNode *left, *right;
   if (root == NULL) return;
