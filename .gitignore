@@ -1,0 +1,4 @@
+examples/*.o
+examples/basic_test
+examples/basic_test.exe
+
