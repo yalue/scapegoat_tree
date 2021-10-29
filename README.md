@@ -9,8 +9,8 @@ This library does *not* support deleting individual nodes from the tree.
 
 Currently it's still kind of slow, especially after ~200k inserts. Not sure if
 this is my fault, or simply the reason why I hadn't heard of scapegoat trees
-until recently. 200k lookups is very quick, at least, so at least the tree is
-being constructed properly.
+until recently. 200k lookups is very quick, so at least the tree is being
+constructed properly.
 
 Usage
 -----
