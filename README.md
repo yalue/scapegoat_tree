@@ -38,8 +38,7 @@ ScapegoatTree *tree = CreateScapegoatTree(MyComparator);
 if (!tree) { /* An error occurred */ }
 ```
 
-Given some comparator function, inserting a key into the tree uses the
-`ScapegoatInsert` function:
+Inserting a key into the tree uses the `ScapegoatInsert` function:
 
 ```
 int result = ScapegoatInsert(tree, (void *) key);
